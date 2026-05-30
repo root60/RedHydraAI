@@ -1,0 +1,43 @@
+name: Monthly RedHydraAI Maintenance
+
+on:
+  schedule:
+    - cron: '0 3 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  monthly-refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Apply safe dependency updates within package semver ranges
+        run: npm update --save || true
+      - name: Rebuild production site
+        run: npm run build
+      - name: Refresh docs fallback build
+        run: |
+          rm -rf docs
+          mkdir -p docs
+          cp dist/index.html docs/index.html
+          cp dist/index.html docs/404.html
+          touch docs/.nojekyll
+      - name: Commit monthly refresh if anything changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json docs
+          git diff --cached --quiet && echo "No monthly changes to commit" || git commit -m "chore: monthly RedHydraAI maintenance refresh"
+          git push || true
