@@ -22,7 +22,7 @@ const sevDist = [
 export default function Dashboard({ onNavigate, activities }: Props) {
   const actions = [
     { l: 'Generate Tool', d: 'Security tools from natural language', p: 'tool-generator' as Page, i: <Wrench size={18} /> },
-    { l: 'AI Agent', d: '5 personas, 3 think modes, web search', p: 'chat-agent' as Page, i: <Zap size={18} /> },
+    { l: 'AI Agent', d: 'Browser AI with agent routing', p: 'chat-agent' as Page, i: <Zap size={18} /> },
     { l: 'Deep Research', d: 'Multi-source analysis', p: 'deep-research' as Page, i: <Microscope size={18} /> },
     { l: 'Code Analyzer', d: 'Vulnerability detection with PoCs', p: 'code-analyzer' as Page, i: <Bug size={18} /> },
     { l: 'Training', d: 'Lessons, quizzes, red team sims', p: 'training-hub' as Page, i: <GraduationCap size={18} /> },
@@ -36,7 +36,7 @@ export default function Dashboard({ onNavigate, activities }: Props) {
           <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-red-500 to-purple-600 shadow-xl shadow-red-500/20 flex items-center justify-center shrink-0"><Flame size={28} className="text-white" /></div>
           <div>
             <h1 className="text-2xl font-bold text-white">Welcome to <span className="text-red-400">Red</span><span className="text-purple-400">Hydra</span> <span className="text-gray-400">AI</span></h1>
-            <p className="text-gray-400 text-sm mt-0.5">Dynamic AI • 5 Personas • Deep/Deeper Thinking • Web Search • Real-time Analysis</p>
+            <p className="text-gray-400 text-sm mt-0.5">Browser AI • 5 Personas • Agent Routing • Local Memory • Real-time Responses</p>
             <div className="flex items-center gap-5 mt-2 text-xs text-gray-500">
               <span className="flex items-center gap-1"><TrendingUp size={11} className="text-emerald-400" />Free & Open Source</span>
               <span className="flex items-center gap-1"><Shield size={11} className="text-cyan-400" />MIT Licensed</span>
