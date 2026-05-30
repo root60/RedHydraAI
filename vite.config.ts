@@ -8,10 +8,13 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// https://vite.dev/config/
 export default defineConfig({
-  base: '/RedHydraAI/',
+  base: "/RedHydraAI/",
   plugins: [react(), tailwindcss(), viteSingleFile()],
+  build: {
+    outDir: "docs",
+    emptyOutDir: true,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),

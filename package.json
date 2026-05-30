@@ -1,12 +1,14 @@
 {
   "name": "redhydra-ai",
-  "private": true,
-  "version": "2.1.0",
+  "private": false,
+  "version": "3.0.0",
   "type": "module",
+  "description": "Open-source defensive cybersecurity AI chat and agent workspace for GitHub Pages.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview --host 0.0.0.0",
+    "clean": "rm -rf docs dist"
   },
   "dependencies": {
     "clsx": "2.1.1",
@@ -25,6 +27,5 @@
     "typescript": "5.9.3",
     "vite": "7.3.2",
     "vite-plugin-singlefile": "2.3.0"
-  },
-  "description": "Frontend-only browser AI security toolkit for GitHub Pages"
+  }
 }
