@@ -1,7 +1,7 @@
 {
   "name": "redhydra-ai",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -26,6 +26,5 @@
     "vite": "7.3.2",
     "vite-plugin-singlefile": "2.3.0"
   },
-  "description": "RedHydra AI Security Platform - React, TypeScript, Vite and Tailwind CSS",
-  "homepage": "https://root60.github.io/RedHydraAI/"
+  "description": "Frontend-only browser AI security toolkit for GitHub Pages"
 }

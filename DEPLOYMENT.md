@@ -1,69 +1,30 @@
-# RedHydra AI GitHub Pages Deployment
+# Deployment Guide for RedHydraAI
 
-Your live URL should be:
+## Recommended: GitHub Actions Pages
 
-```text
-https://root60.github.io/RedHydraAI/
-```
+1. Upload all files from this ZIP into your GitHub repository.
+2. Commit and push to `main`.
+3. Open repository `Settings` -> `Pages`.
+4. Select `GitHub Actions` as the source.
+5. Open the `Actions` tab and run `Deploy RedHydraAI to GitHub Pages` if it does not run automatically.
 
-## Why the old GitHub Pages site did not work
+## Backup: `/docs` folder deployment
 
-This project is a Vite + React + TypeScript app. GitHub Pages can host static files, but it cannot compile `src/main.tsx` directly in the browser. The app must be built first with:
+This ZIP includes a prebuilt static copy in `/docs`.
 
-```bash
-npm run build
-```
+1. Open repository `Settings` -> `Pages`.
+2. Select `Deploy from a branch`.
+3. Branch: `main`.
+4. Folder: `/docs`.
+5. Save.
 
-The final static site is generated inside the `dist` folder.
+## Why the old site was not working
 
-## Recommended method: GitHub Actions
+A Vite React app cannot be served directly from raw source files on GitHub Pages. The browser cannot run `/src/main.tsx` directly as a production website. The project must be built first. This package includes both a GitHub Actions build workflow and a `/docs` fallback build.
 
-This ZIP already includes:
+## AI notes
 
-```text
-.github/workflows/deploy.yml
-```
-
-After uploading/pushing the files to the `main` branch:
-
-1. Open your repository on GitHub.
-2. Go to **Settings**.
-3. Go to **Pages**.
-4. Under **Build and deployment**, set **Source** to **GitHub Actions**.
-5. Go to **Actions** and run/confirm the workflow named **Deploy RedHydra AI to GitHub Pages**.
-6. Visit:
-
-```text
-https://root60.github.io/RedHydraAI/
-```
-
-## Alternative method: deploy from `/docs`
-
-This ZIP also includes a prebuilt static version in:
-
-```text
-docs/index.html
-```
-
-If you do not want to use GitHub Actions:
-
-1. Upload all files to the repository.
-2. Go to **Settings** > **Pages**.
-3. Set **Source** to **Deploy from a branch**.
-4. Select branch: **main**.
-5. Select folder: **/docs**.
-6. Save.
-
-## Local testing
-
-```bash
-npm install
-npm run dev
-```
-
-Production build:
-
-```bash
-npm run build
-npm run preview
-```
+- The AI chat is now local-first and tries to load an open-source browser model.
+- WebGPU support depends on the visitor's browser/device.
+- No API key or backend server is required for the default mode.
+- Static GitHub Pages cannot perform true autonomous model training or self-code upgrades. The monthly workflow refreshes dependencies/build files safely.

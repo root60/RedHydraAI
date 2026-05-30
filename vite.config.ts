@@ -8,10 +8,9 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// GitHub Pages project URL: https://root60.github.io/RedHydraAI/
-// The base path is required when deploying a Vite project under a repository name.
+// https://vite.dev/config/
 export default defineConfig({
-  base: "/RedHydraAI/",
+  base: '/RedHydraAI/',
   plugins: [react(), tailwindcss(), viteSingleFile()],
   resolve: {
     alias: {
