@@ -1,7 +1,7 @@
 {
   "name": "redhydra-ai",
   "private": false,
-  "version": "3.0.0",
+  "version": "3.1.0",
   "type": "module",
   "description": "Open-source defensive cybersecurity AI chat and agent workspace for GitHub Pages.",
   "scripts": {

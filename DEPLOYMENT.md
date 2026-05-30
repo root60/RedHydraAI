@@ -1,39 +1,32 @@
-# RedHydra AI Deployment Guide
+# Deployment Guide — RedHydra AI
 
-## Best option: GitHub Actions
+This project is already configured for GitHub Pages under the repository path `/RedHydraAI/`.
 
-1. Extract the final ZIP.
-2. Upload/push everything to `https://github.com/root60/RedHydraAI`.
-3. Open the repository on GitHub.
-4. Go to **Settings → Pages**.
-5. Under **Build and deployment**, select **GitHub Actions**.
-6. Push to `main` or manually run the workflow.
+## Option 1: GitHub Actions
 
-The workflow builds the Vite app into `/docs` and publishes it to GitHub Pages.
+1. Extract the ZIP.
+2. Upload or push all files to your GitHub repository.
+3. Go to **Settings → Pages**.
+4. Under **Build and deployment**, choose **GitHub Actions**.
+5. Push to `main`.
 
-## Backup option: `/docs` branch deployment
+GitHub will build and publish the app automatically.
 
-If you do not want to use GitHub Actions:
+## Option 2: Deploy from `/docs`
 
-1. Upload all files including `/docs`.
-2. Go to **Settings → Pages**.
-3. Choose **Deploy from a branch**.
-4. Select `main` and `/docs`.
-5. Save.
+1. Extract the ZIP.
+2. Upload or push all files to the repository.
+3. Go to **Settings → Pages**.
+4. Choose **Deploy from a branch**.
+5. Select branch: `main`.
+6. Select folder: `/docs`.
+7. Save.
 
 ## Important
 
-Do not deploy this Vite source from `main / root` unless GitHub Actions builds it first. Raw Vite source files cannot run as a finished React app on GitHub Pages.
+Do not select `main / root` for a Vite source project unless the compiled static files are placed at root. This project includes a prebuilt `/docs` folder for easy GitHub Pages deployment.
 
-## Repository URL base
-
-The Vite base is already configured as:
-
-```ts
-base: "/RedHydraAI/"
-```
-
-This matches:
+## Site URL
 
 ```txt
 https://root60.github.io/RedHydraAI/
