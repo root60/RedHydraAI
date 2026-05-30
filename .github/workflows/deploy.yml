@@ -1,8 +1,8 @@
-name: Deploy RedHydraAI to GitHub Pages
+name: Deploy RedHydra AI to GitHub Pages
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   workflow_dispatch:
 
 permissions:
@@ -29,11 +29,14 @@ jobs:
         run: npm ci
       - name: Build static site
         run: npm run build
+      - name: Add GitHub Pages files
+        run: |
+          cp docs/index.html docs/404.html
+          touch docs/.nojekyll
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
-
+          path: docs
   deploy:
     environment:
       name: github-pages
