@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.animate-fade-in { animation: fadeIn 0.4s ease-out both; }
+.animate-slide-up { animation: slideUp 0.5s ease-out both; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #334155; }
+::selection { background-color: rgba(239, 68, 68, 0.3); color: white; }
+html { scroll-behavior: smooth; }
+body { background: #050508; color: #e5e7eb; }
+pre, code, textarea { font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', 'Consolas', monospace; }
+*:focus-visible { outline: 2px solid rgba(239, 68, 68, 0.5); outline-offset: 2px; }
+select option { background-color: #111827; color: #e5e7eb; }
+.line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
