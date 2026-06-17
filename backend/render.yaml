@@ -7,13 +7,11 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
     envVars:
-      - key: APP_NAME
-        value: RedHydra OpenCore Python Backend
-      - key: UPSTREAM_BASE_URL
-        value: http://localhost:11434/v1
-      - key: DEFAULT_MODEL
-        value: llama3.1:8b
-      - key: ALLOWED_ORIGINS
-        value: '*'
       - key: DEMO_MODE
-        value: 'false'
+        value: "true"
+      - key: ENABLE_WEB_SEARCH
+        value: "true"
+      - key: ENABLE_DEEP_RESEARCH
+        value: "true"
+      - key: WEB_SEARCH_MODE
+        value: auto
