@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#08040c" />
+    <meta name="description" content="RedHydra OpenCore — animated open-source chat and agent interface with optional Python model backend." />
+    <title>RedHydra OpenCore</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="./assets/styles.css" as="style" />
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <canvas id="hydraCanvas" aria-hidden="true"></canvas>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="shell">
+      <aside class="sidebar glass panel-rise">
+        <div class="brand">
+          <div class="brand-mark pulse-core" aria-hidden="true">RH</div>
+          <div>
+            <h1>RedHydra</h1>
+            <p>OpenCore Interface</p>
+          </div>
+        </div>
+
+        <div class="status-card">
+          <div class="status-dot" id="statusDot"></div>
+          <div>
+            <strong id="statusTitle">Frontend ready</strong>
+            <span id="statusText">Connect a Python backend for live model output.</span>
+          </div>
+        </div>
+
+        <section class="control-block">
+          <label for="backendUrl">Backend URL</label>
+          <input id="backendUrl" type="url" placeholder="https://your-backend.example.com" autocomplete="off" />
+          <small>Leave empty for same-origin <code>/api</code>.</small>
+        </section>
+
+        <section class="control-block">
+          <label for="modelSelect">Model</label>
+          <select id="modelSelect"></select>
+          <small id="modelHint">OpenAI-compatible models supported.</small>
+        </section>
+
+        <section class="control-grid two">
+          <div>
+            <label for="modeSelect">Mode</label>
+            <select id="modeSelect">
+              <option value="chat" selected>Chat — default</option>
+              <option value="agent">Agent — secondary</option>
+            </select>
+          </div>
+          <div>
+            <label for="reasoningSelect">Reasoning</label>
+            <select id="reasoningSelect">
+              <option value="minimal" selected>Fast</option>
+              <option value="balanced">Balanced</option>
+              <option value="deep">Deep</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="control-grid two">
+          <div>
+            <label for="animationSelect">Animation</label>
+            <select id="animationSelect">
+              <option value="calm">Calm</option>
+              <option value="live" selected>Live</option>
+              <option value="max">Max</option>
+            </select>
+          </div>
+          <div>
+            <label for="streamSelect">Speed</label>
+            <select id="streamSelect">
+              <option value="stream" selected>Instant stream</option>
+              <option value="full">Full reply</option>
+            </select>
+          </div>
+        </section>
+
+
+        <section class="usage-dashboard glass-lite" aria-label="Token usage dashboard">
+          <div class="usage-head">
+            <div>
+              <p class="mini-eyebrow">TOKEN DASHBOARD</p>
+              <strong>Live Usage Monitor</strong>
+            </div>
+            <button id="resetUsageBtn" class="micro-btn" type="button">Reset</button>
+          </div>
+
+          <div class="usage-grid">
+            <div class="usage-tile">
+              <span>Input</span>
+              <b id="usageInputTokens">0</b>
+            </div>
+            <div class="usage-tile">
+              <span>Output</span>
+              <b id="usageOutputTokens">0</b>
+            </div>
+            <div class="usage-tile wide">
+              <span>Total Tokens</span>
+              <b id="usageTotalTokens">0</b>
+            </div>
+          </div>
+
+          <div class="live-meter">
+            <div class="meter-line"><span id="liveState">Idle</span><em id="liveElapsed">0.0s</em></div>
+            <div class="meter-track"><i id="liveMeterFill"></i></div>
+            <div class="meter-stats">
+              <span><b id="liveTokensSec">0.0</b> tok/s</span>
+              <span><b id="liveChars">0</b> chars</span>
+              <span><b id="usageRequests">0</b> runs</span>
+            </div>
+          </div>
+
+          <small id="usageHint">Uses backend usage when available; otherwise estimates locally for live streaming.</small>
+        </section>
+
+        <section class="quick-actions">
+          <button id="newChatBtn" class="ghost-btn">New chat</button>
+          <button id="healthBtn" class="ghost-btn">Check backend</button>
+          <button id="exportBtn" class="ghost-btn">Export</button>
+        </section>
+      </aside>
+
+      <main class="workspace panel-rise">
+        <header class="topbar glass">
+          <div>
+            <p class="eyebrow">HYDRA CORE ONLINE</p>
+            <h2 id="workspaceTitle">Chat Mode</h2>
+          </div>
+          <div class="mode-pill" id="modePill">Chat default</div>
+        </header>
+
+        <section class="hero glass" id="heroCard">
+          <div>
+            <p class="eyebrow">Open-source deployment profile</p>
+            <h3>Clean provider-neutral build. No private env. Python backend optional.</h3>
+            <p>
+              This GitHub-ready build keeps the animated RedHydra interface, streams tokens as soon as they arrive,
+              and uses public configuration only. Connect any OpenAI-compatible Python/model backend when you are ready.
+            </p>
+          </div>
+          <button id="hideHeroBtn" class="primary-btn">Start</button>
+        </section>
+
+        <section class="chat glass" aria-live="polite">
+          <div id="messageList" class="message-list"></div>
+          <form id="composer" class="composer">
+            <textarea id="promptInput" rows="1" placeholder="Ask RedHydra anything..." autocomplete="off"></textarea>
+            <button id="sendBtn" class="send-btn" type="submit">
+              <span>Send</span>
+              <b aria-hidden="true">↵</b>
+            </button>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <template id="messageTemplate">
+      <article class="message">
+        <div class="avatar"></div>
+        <div class="bubble">
+          <div class="message-meta"></div>
+          <div class="message-content"></div>
+        </div>
+      </article>
+    </template>
+
+    <script src="./config.public.js"></script>
+    <script src="./assets/app.js" type="module"></script>
+  </body>
+</html>

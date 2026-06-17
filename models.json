@@ -1,0 +1,51 @@
+[
+  {
+    "id": "dphn/Dolphin-Llama3-8B-Instruct-exl2-6bpw",
+    "label": "RedHydra Dolphin Llama3 EXL2",
+    "provider": "GPU / OpenAI-compatible",
+    "speed": "fast on GPU",
+    "notes": "Recommended real model for the custom Python backend."
+  },
+  {
+    "id": "dphn/Dolphin3.0-Qwen2.5-0.5B",
+    "label": "RedHydra Dolphin Fast",
+    "provider": "OpenAI-compatible",
+    "speed": "very fast",
+    "notes": "Good for public demos and low latency."
+  },
+  {
+    "id": "llama3.1:8b",
+    "label": "Local Ollama Llama 3.1 8B",
+    "provider": "Ollama local",
+    "speed": "local dependent",
+    "notes": "Works with Ollama OpenAI-compatible endpoint."
+  },
+  {
+    "id": "qwen2.5:7b",
+    "label": "Local Ollama Qwen 2.5 7B",
+    "provider": "Ollama local",
+    "speed": "local dependent",
+    "notes": "Balanced coding and general chat model."
+  },
+  {
+    "id": "deepseek/deepseek-r1",
+    "label": "DeepSeek R1",
+    "provider": "OpenRouter / compatible",
+    "speed": "provider dependent",
+    "notes": "Reasoning-focused model option."
+  },
+  {
+    "id": "meta-llama/llama-3.3-70b-instruct",
+    "label": "Llama 3.3 70B Instruct",
+    "provider": "OpenRouter / compatible",
+    "speed": "provider dependent",
+    "notes": "Large general-purpose model option."
+  },
+  {
+    "id": "gpt-4o-mini",
+    "label": "GPT-4o mini compatible",
+    "provider": "OpenAI-compatible",
+    "speed": "fast",
+    "notes": "Use only through your own backend/provider key."
+  }
+]
