@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -20,19 +20,40 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-      - name: Install dependencies
-        run: npm ci || npm install
-      - name: Build
+
+      - name: Show project files
+        run: |
+          pwd
+          ls -la
+          test -f package.json || (echo "package.json not found at repo root" && exit 1)
+          cat package.json
+
+      - name: Install frontend dependencies
+        run: |
+          npm config set registry https://registry.npmjs.org/
+          npm install --include=dev --no-audit --no-fund --legacy-peer-deps
+
+      - name: Ensure Vite is available
+        run: |
+          npm install --save-dev vite@^6.4.2 @vitejs/plugin-react@^5.0.4 typescript@~5.8.2 --no-audit --no-fund --legacy-peer-deps
+          npx vite --version
+
+      - name: Build GitHub Pages frontend
         run: npm run build:pages
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+
   deploy:
     environment:
       name: github-pages
