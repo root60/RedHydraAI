@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>RedHydra OpenCore</title>
+    <script>
+      const base = '/RedHydraOpenCore/';
+      const path = window.location.pathname;
+      if (!path.startsWith(base)) window.location.replace(base);
+      else window.location.replace(base + '#' + path.replace(base, '') + window.location.search);
+    </script>
+  </head>
+  <body>Redirecting...</body>
+</html>
