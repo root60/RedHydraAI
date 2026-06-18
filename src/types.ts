@@ -1,7 +1,7 @@
 export type Role = 'system' | 'user' | 'assistant';
 
 export type ProviderType =
-  | 'opencore-local'
+  | 'local-model'
   | 'openai'
   | 'openrouter'
   | 'ollama'

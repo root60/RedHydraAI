@@ -5,11 +5,11 @@ import { sendChatMessage } from './services/aiService';
 import { runWebResearch, shouldRunWebResearch } from './services/webResearch';
 import { estimateAttachmentTokens, getLastMessagesTokenData, getRealtimeUsage } from './utils/tokenCounter';
 
-const APP_NAME = import.meta.env.VITE_APP_NAME || 'RedHydra OpenCore';
+const APP_NAME = import.meta.env.VITE_APP_NAME || 'RedHydra AI';
 const DEFAULT_MODEL = import.meta.env.VITE_REDHYDRA_BASE_MODEL || 'dphn/Dolphin-Llama3-8B-Instruct-exl2-6bpw';
 
 const defaultSettings: AISettings = {
-  provider: 'opencore-local',
+  provider: 'local-model',
   modelName: DEFAULT_MODEL,
   baseUrl: '',
   apiKey: '',
@@ -59,7 +59,7 @@ function loadJson<T>(key: string, fallback: T): T {
 function ProviderSettings({ settings, onChange }: { settings: AISettings; onChange: (next: AISettings) => void }) {
   const applyProvider = (provider: ProviderType) => {
     const presets: Record<ProviderType, Partial<AISettings>> = {
-      'opencore-local': { provider, modelName: DEFAULT_MODEL, baseUrl: '', apiKey: '' },
+      'local-model': { provider, modelName: DEFAULT_MODEL, baseUrl: '', apiKey: '' },
       openai: { provider, modelName: 'gpt-4o-mini', baseUrl: 'https://api.openai.com/v1' },
       openrouter: { provider, modelName: 'meta-llama/llama-3.3-70b-instruct', baseUrl: 'https://openrouter.ai/api/v1' },
       ollama: { provider, modelName: 'llama3.1', baseUrl: 'http://localhost:11434/v1', apiKey: '' },
@@ -69,7 +69,7 @@ function ProviderSettings({ settings, onChange }: { settings: AISettings; onChan
   };
 
   const modelPresets: Array<{ label: string; model: string; provider: ProviderType; baseUrl?: string; note: string }> = [
-    { label: 'Actual Loaded Local/GPU', model: DEFAULT_MODEL, provider: 'opencore-local', note: 'Default target' },
+    { label: 'Actual Loaded Local/GPU', model: DEFAULT_MODEL, provider: 'local-model', note: 'Default target' },
     { label: 'GPT-4o mini', model: 'gpt-4o-mini', provider: 'openai', baseUrl: 'https://api.openai.com/v1', note: 'Fast cloud' },
     { label: 'GPT-4o', model: 'gpt-4o', provider: 'openai', baseUrl: 'https://api.openai.com/v1', note: 'Stronger cloud' },
     { label: 'DeepSeek R1', model: 'deepseek/deepseek-r1', provider: 'openrouter', baseUrl: 'https://openrouter.ai/api/v1', note: 'Reasoning' },
@@ -84,7 +84,7 @@ function ProviderSettings({ settings, onChange }: { settings: AISettings; onChan
       <label>
         Provider
         <select value={settings.provider} onChange={(event) => applyProvider(event.target.value as ProviderType)}>
-          <option value="opencore-local">OpenCore local fallback</option>
+          <option value="local-model">Local model fallback</option>
           <option value="openai">OpenAI</option>
           <option value="openrouter">OpenRouter</option>
           <option value="ollama">Ollama / local OpenAI-compatible</option>
@@ -109,7 +109,7 @@ function ProviderSettings({ settings, onChange }: { settings: AISettings; onChan
           <button
             key={`${preset.provider}-${preset.model}`}
             className={settings.modelName === preset.model ? 'preset active' : 'preset'}
-            onClick={() => onChange({ ...settings, provider: preset.provider, modelName: preset.model, baseUrl: preset.baseUrl ?? '', apiKey: preset.provider === 'ollama' || preset.provider === 'opencore-local' ? '' : settings.apiKey })}
+            onClick={() => onChange({ ...settings, provider: preset.provider, modelName: preset.model, baseUrl: preset.baseUrl ?? '', apiKey: preset.provider === 'ollama' || preset.provider === 'local-model' ? '' : settings.apiKey })}
           >
             <strong>{preset.label}</strong>
             <span>{preset.model}</span>
