@@ -1,4 +1,4 @@
-name: Deploy RedHydra OpenCore to GitHub Pages
+name: Deploy RedHydra AI to GitHub Pages
 
 on:
   push:
