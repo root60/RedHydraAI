@@ -5,11 +5,11 @@ import { researchBundleToContext } from './webResearch';
 const PUBLIC_BASE_MODEL = import.meta.env.VITE_REDHYDRA_BASE_MODEL || 'dphn/Dolphin-Llama3-8B-Instruct-exl2-6bpw';
 
 const MODE_INSTRUCTIONS: Record<string, string> = {
-  general: 'You are RedHydra OpenCore, a direct, useful AI workspace assistant. Chat mode is the default. Answer clearly and avoid pretending to have hidden vendor keys.',
-  security: 'You are RedHydra OpenCore in defensive cybersecurity mode. Help with secure coding, audits, hardening, detection, and education. Refuse harmful intrusion, credential theft, malware, or evasion requests.',
-  developer: 'You are RedHydra OpenCore in developer mode. Produce clean, maintainable code and precise debugging steps.',
-  research: 'You are RedHydra OpenCore in research mode. Use provided live research context when available, compare sources, and state uncertainty.',
-  writing: 'You are RedHydra OpenCore in writing mode. Draft polished copy while preserving the user intent.'
+  general: 'You are RedHydra AI, a direct, useful AI workspace assistant. Chat mode is the default. Answer clearly and avoid pretending to have hidden vendor keys.',
+  security: 'You are RedHydra AI in defensive cybersecurity mode. Help with secure coding, audits, hardening, detection, and education. Refuse harmful intrusion, credential theft, malware, or evasion requests.',
+  developer: 'You are RedHydra AI in developer mode. Produce clean, maintainable code and precise debugging steps.',
+  research: 'You are RedHydra AI in research mode. Use provided live research context when available, compare sources, and state uncertainty.',
+  writing: 'You are RedHydra AI in writing mode. Draft polished copy while preserving the user intent.'
 };
 
 function id(prefix = 'm') {
@@ -100,7 +100,7 @@ async function callOpenAICompatible(messages: Message[], settings: AISettings, a
   if (settings.apiKey.trim()) headers.Authorization = `Bearer ${settings.apiKey.trim()}`;
   if (settings.provider === 'openrouter') {
     headers['HTTP-Referer'] = window.location.origin;
-    headers['X-Title'] = 'RedHydra OpenCore';
+    headers['X-Title'] = 'RedHydra AI';
   }
 
   const payload = {
@@ -171,7 +171,7 @@ function localAssistant(messages: Message[], settings: AISettings, agentMode: bo
     return `File received: ${last.attachment.name}.\n\nQuick readable preview:\n\n${preview.slice(0, 1800)}\n\nAsk what you want me to analyze, rewrite, debug, or extract from this file.`;
   }
 
-  if (/^(hi|hello|hey)\b/i.test(prompt)) return 'Hi, I’m RedHydra OpenCore. Chat mode is active by default. Ask anything or toggle Agent Mode for multi-step execution.';
+  if (/^(hi|hello|hey)\b/i.test(prompt)) return 'Hi, I’m RedHydra AI. Chat mode is active by default. Ask anything or toggle Agent Mode for multi-step execution.';
   if (lower.includes('model')) return `Default actual model target: ${PUBLIC_BASE_MODEL}. Configure it behind an OpenAI-compatible local/GPU endpoint, or switch to OpenAI, OpenRouter, Ollama, or a custom endpoint in Settings.`;
   if (lower.includes('web') || lower.includes('research')) return 'Use `/web your topic` for live web search or `/research your topic` for deep research across public sources.';
   if (lower.includes('token')) return 'The live token dashboard is active on the right panel. It estimates input, output, attachment, total tokens, and projected usage cost based on the selected provider.';
@@ -213,7 +213,7 @@ export async function sendChatMessage(params: {
 
   let output = '';
   try {
-    if (settings.provider === 'opencore-local') {
+    if (settings.provider === 'local-model') {
       output = localAssistant(messages, settings, agentMode, research);
     } else {
       output = await callOpenAICompatible(messages, settings, agentMode, research, onChunk);
