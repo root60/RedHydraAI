@@ -4,7 +4,7 @@ const MODEL_PRICING_PER_1K: Record<string, { input: number; output: number }> = 
   'gpt-4o': { input: 0.005, output: 0.015 },
   'gpt-4o-mini': { input: 0.00015, output: 0.0006 },
   'openrouter': { input: 0.001, output: 0.001 },
-  'opencore-local': { input: 0, output: 0 },
+  'local-model': { input: 0, output: 0 },
   'ollama': { input: 0, output: 0 },
   'custom-openai-compatible': { input: 0, output: 0 }
 };
