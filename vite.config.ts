@@ -3,7 +3,7 @@ import { defineConfig, loadEnv } from 'vite';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const base = env.VITE_GITHUB_PAGES_BASE || (mode === 'production' ? '/RedHydraOpenCore/' : '/');
+  const base = env.VITE_GITHUB_PAGES_BASE || (mode === 'production' ? '/RedHydraAI/' : '/');
 
   return {
     base,
